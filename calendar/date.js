@@ -23,7 +23,41 @@ class Calendar {
 		// 初始化的时候先设置一次日期变量
 		this.#setDate(defaultYear, defaultMonth, defaultDate);
 		// 给按钮绑定上功能
-		// this.#buttonAdd();
+		this.#buttonAdd();
+	};
+	// 给按钮绑定上功能
+	#buttonAdd = () => {
+		const lastYearButton = this.calendarBody.querySelector('.lastYear');
+		const lastMonthButton = this.calendarBody.querySelector('.lastMonth');
+		const nextMonthButton = this.calendarBody.querySelector('.nextMonth');
+		const nextYearButton = this.calendarBody.querySelector('.nextYear');
+		// 点击对应按钮后就把对应的数加上或减去，然后用新数再调用渲染日期函数，重新整上日期
+		lastYearButton.addEventListener('click', () => {
+			this.#year--;
+			this.#setDate(this.#year, this.#month);
+		});
+		lastMonthButton.addEventListener('click', () => {
+			if (this.#month === 1) {
+				this.#year--;
+				this.#month = 12;
+			} else {
+				this.#month--;
+			}
+			this.#setDate(this.#year, this.#month);
+		});
+		nextMonthButton.addEventListener('click', () => {
+			if (this.#month === 12) {
+				this.#year++;
+				this.#month = 1;
+			} else {
+				this.#month++;
+			}
+			this.#setDate(this.#year, this.#month);
+		});
+		nextYearButton.addEventListener('click', () => {
+			this.#year++;
+			this.#setDate(this.#year, this.#month);
+		});
 	};
 
 	// 设置日期变量，并且设置好上面的大字的日期字符串（每有变化就调用）
