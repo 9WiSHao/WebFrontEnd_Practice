@@ -108,6 +108,7 @@ class Calendar {
 			if (i < firstDayInCurrentMonth) {
 				// 上个月的日子
 				date = dayCountInLastMonth - firstDayInCurrentMonth + 1 + i;
+				// 这是个自建属性，给每个日期存好对应的日期字符串，方便点击的时候调用，下同
 				dateString = this.#getDateString(yearOfLastMonth, lastMonth, date);
 			} else if (i >= firstDayInCurrentMonth + dayCountInCurrentMonth) {
 				// 这是下个月的日子
@@ -116,7 +117,7 @@ class Calendar {
 			} else {
 				// 这是当前月的日子
 				date = i - firstDayInCurrentMonth + 1;
-				dateString = this.#getDateString(yearOfLastMonth, lastMonth, date);
+				dateString = this.#getDateString(this.#year, this.#month, date);
 				// 为当前月多加一个类名，用来把颜色改成最黑的突出
 				classCurrentMonth = 'currentMonth';
 			}
