@@ -86,3 +86,8 @@ body {
 .currentMonth {
 	color: rgba(0, 0, 0, 1);
 }
+
+.dates .selected {
+	background-color: fuchsia;
+	color: white;
+}

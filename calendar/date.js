@@ -58,8 +58,23 @@ class Calendar {
 			this.#year++;
 			this.#setDate(this.#year, this.#month);
 		});
+		// 这是点击日子就给显示日子选中了，并且给上面大字的日期显示的方法
+		this.calendarBody.addEventListener('click', (element) => {
+			// 使用了监听器的事件对象判断鼠标点在哪个日子上
+			if (element.target.classList.contains('date')) {
+				// 把日期字符串换成点击到的
+				this.#dateString = element.target.title;
+				let dateEles = this.calendarBody.querySelectorAll('.date');
+				// 这里的思路是，遍历所有日子的dom，使用toggle方法，如果日期字符串符合点击到的，就class改成选中，要是不符合却有选中。就删了它
+				for (let element of dateEles) {
+					element.classList.toggle('selected', element.title === this.#dateString);
+				}
+				// 最后再把上面的大字日期字符串改成所选的
+				const currentDateEle = this.calendarBody.querySelector('.currentDay');
+				currentDateEle.textContent = this.#dateString;
+			}
+		});
 	};
-
 	// 设置日期变量，并且设置好上面的大字的日期字符串（每有变化就调用）
 	#setDate = (year, month, date) => {
 		this.#year = year;
@@ -72,7 +87,6 @@ class Calendar {
 		// 获取处理好的日期字符串
 		this.#dateString = this.#getDateString(this.#year, this.#month, this.#date);
 		currentDateEle.textContent = this.#dateString;
-
 		// 然后处理整个的月份小日期
 		this.#renderDates();
 	};
@@ -87,8 +101,8 @@ class Calendar {
 	};
 	// 把小日期整上去的方法
 	#renderDates = () => {
-		// 先获取所有小日期清理掉
 		const datesEle = this.calendarBody.querySelector('.dates');
+		// 先获取所有小日期清理掉
 		datesEle.innerHTML = '';
 
 		// 获取这个月有多少天，以此确定位置
@@ -120,6 +134,10 @@ class Calendar {
 				dateString = this.#getDateString(this.#year, this.#month, date);
 				// 为当前月多加一个类名，用来把颜色改成最黑的突出
 				classCurrentMonth = 'currentMonth';
+				// 第一次打开的时候，或者是另选中日子的时候会把#date改成选中的天数，此时加上不一样的背景，就成了选中状态
+				if (date === this.#date) {
+					classCurrentMonth = 'currentMonth selected';
+				}
 			}
 			// 写好每个日子并且插入
 			let insertDateHTML = `<button class="date ${classCurrentMonth}" title="${dateString}">${date}</button>`;
@@ -148,7 +166,6 @@ class Calendar {
 		let dayCountInNextMonth = this.#getDayCount(nextMonth, yearOfNextMonth);
 		return { nextMonth, yearOfNextMonth, dayCountInNextMonth };
 	};
-
 	// 获取这个月有多少天，以此确定最后一天位置
 	#getDayCount = (year, month) => {
 		// 利用了Date对象里给的参数不在范围内的数会自动转换的特点，这里是日为0，就换算到到上个月最后一天了
@@ -163,4 +180,5 @@ class Calendar {
 	};
 }
 
-new Calendar(new Date(`2022-5-11`));
+// new Calendar(); // 这样默认是当前日期
+new Calendar(new Date('2022-11-22'));
