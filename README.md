@@ -14,4 +14,6 @@
   + css的transform-origin调整旋转中心点，rotate(xxdeg)表示旋转多少度
 + 滑条与颜色盘
   + 可以用现成的input标签属性设置调用滑条和调色盘，然后隐藏原有样式自己写样式，这样就不用自己全部手搓了（之前写播放条完全从头手搓的。。。）
+  + css的原生变量写法 --xxx ，一般来说给它初始化在根:root 上，然后调用的时候用var(--xxx)
+  + document.documentElement.style.setProperty(propertyName, value)来用js改变css全局变量
 
