@@ -16,4 +16,9 @@
   + 可以用现成的input标签属性设置调用滑条和调色盘，然后隐藏原有样式自己写样式，这样就不用自己全部手搓了（之前写播放条完全从头手搓的。。。）
   + css的原生变量写法 --xxx ，一般来说给它初始化在根:root 上，然后调用的时候用var(--xxx)
   + document.documentElement.style.setProperty(propertyName, value)来用js改变css全局变量
++ 数组练习
+  + console.table()在控制台以列表形式输出，数组或者对象会很好看
+  + 数组sort方法
+  + 简单爬取页面内容写法
+  + 数组reduce方法妙用来实现数组词频统计
 
